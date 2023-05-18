@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Factories</h1>
+
+<div id="factories">
+  <% @factories.each do |factory| %>
+    <%= render factory %>
+    <p>
+      <%= link_to "Show this factory", factory %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New factory", new_factory_path %>

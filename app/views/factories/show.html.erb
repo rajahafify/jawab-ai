@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @factory %>
+
+<div>
+  <%= link_to "Edit this factory", edit_factory_path(@factory) %> |
+  <%= link_to "Back to factories", factories_path %>
+
+  <%= button_to "Destroy this factory", @factory, method: :delete %>
+</div>
