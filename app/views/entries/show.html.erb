@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @entry %>
+
+<div>
+  <%= link_to "Edit this entry", edit_factory_container_entry_path(@factory, @container, @entry) %> |
+  <%= link_to "Back to container", [@factory, @container] %>
+
+  <%= button_to "Destroy this entry", [@factory, @container, @entry], method: :delete %>
+</div>

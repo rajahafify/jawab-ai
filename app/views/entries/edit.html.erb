@@ -1,0 +1,10 @@
+<h1>Editing entry</h1>
+
+<%= render "form", entry: @entry %>
+
+<br>
+
+<div>
+  <%= link_to "Show this entry", [@factory, @container, @entry] %> |
+  <%= link_to "Back to contianer", [@factory, @container] %>
+</div>

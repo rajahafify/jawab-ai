@@ -4,7 +4,7 @@
 
 <div>
   <%= link_to "Edit this container", edit_factory_container_path(@factory, @container) %> |
-  <%= link_to "Back to factory", factory_path(@factory) %>
+  <%= link_to "Back to factory", @factory %>
 
-  <%= button_to "Destroy this container", factory_container_path(@container), method: :delete %>
+  <%= button_to "Destroy this container", [@factory, @container], method: :delete %>
 </div>

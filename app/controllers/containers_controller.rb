@@ -3,11 +3,6 @@ class ContainersController < ApplicationController
 
   before_action :set_factory
 
-  # GET /containers or /containers.json
-  def index
-    @containers = @factory.containers.all
-  end
-
   # GET /containers/1 or /containers/1.json
   def show
   end

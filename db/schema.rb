@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_18_091917) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_20_041359) do
   create_table "containers", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
@@ -18,6 +18,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_18_091917) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["factory_id"], name: "index_containers_on_factory_id"
+  end
+
+  create_table "entries", force: :cascade do |t|
+    t.text "content"
+    t.integer "container_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title", null: false
+    t.index ["container_id"], name: "index_entries_on_container_id"
   end
 
   create_table "factories", force: :cascade do |t|
@@ -31,4 +40,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_18_091917) do
   end
 
   add_foreign_key "containers", "factories"
+  add_foreign_key "entries", "containers"
 end

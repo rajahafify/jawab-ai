@@ -9,9 +9,17 @@
     <%= container.description %>
   </p>
 
-  <p>
-    <strong>Factory:</strong>
-    <%= container.factory_id %>
-  </p>
-
+  <div>
+    <p>Entries</p>
+    <ul>
+      <% @container.entries.each do |entry| %>
+        <li>
+          <%= link_to entry.title, [@factory, @container, entry] %>
+        </li>
+      <% end %>
+    </ul>
+    <p>
+      <%= link_to "Add new entry", new_factory_container_entry_path(@factory, @container) %>
+    </p>
+  </div>
 </div>
