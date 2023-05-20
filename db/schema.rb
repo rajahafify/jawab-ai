@@ -11,10 +11,13 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_05_20_041359) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "containers", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
-    t.integer "factory_id", null: false
+    t.bigint "factory_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["factory_id"], name: "index_containers_on_factory_id"
@@ -22,7 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_20_041359) do
 
   create_table "entries", force: :cascade do |t|
     t.text "content"
-    t.integer "container_id", null: false
+    t.bigint "container_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title", null: false
