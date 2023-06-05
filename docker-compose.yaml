@@ -1,17 +1,26 @@
 version: '3.5'
 services:
   db:
-    image: postgres
+    image: ankane/pgvector
     volumes:
-      - ./tmp/db:/var/lib/postgresql/data
+      - ./tmp/db:/var/lib/pg/data
     environment:
       POSTGRES_PASSWORD: password
   web:
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: /bin/bash -c "rm -f /tmp/server.pid && bundle exec rails server -b 0.0.0.0 -P /tmp/server.pid"
+    env_file: .env
+    
     volumes:
       - .:/myapp
     ports:
       - "3000:3000"
     depends_on:
       - db
+      - redis
+  redis:
+    image: "redis:7-alpine"
+    ports:
+      - 6379
+    volumes:
+    - ./tmp/redis_data:/var/lib/redis/data
