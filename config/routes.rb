@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  resources :entries
+  devise_for :users
+
   root "factories#index"
 
   resources :factories do
