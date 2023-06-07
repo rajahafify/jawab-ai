@@ -10,9 +10,10 @@
           </div>
         </ul>
 
-        <%= render partial: "messages/form", locals: { chat: @chat } %>
+        <%= render partial: "messages/form", locals: { factory: @factory, chat: @chat } %>
       </div>
     </div>
 
+    <%= link_to "Delete chat", [@factory, @chat], method: :delete, data: { confirm: "Are you sure?" } %>
   </div>
 </div>

@@ -19,7 +19,7 @@
       <% factory.containers.each do |container| %>
         <li>
           <p>
-            <%= link_to container.name,  factory_container_path(factory, container) %>
+            <%= link_to container.name,  [factory, container] %>
           </p>
           <p>
             <%= container.description %>
@@ -32,4 +32,17 @@
     </ul>
   <% end %>
   <%= link_to "Add new container", new_factory_container_path(factory) %>
+
+  <% if factory.chats.present? %>
+    <ul>
+      <% factory.chats.each do |chat| %>
+        <li>
+          <p>
+          <%= link_to "Chat ##{chat.id}", [factory, chat] %>
+          </p>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= button_to "Add new chat", factory_chats_path(factory), method: :post %>
 </div>
