@@ -12,9 +12,9 @@ Rails.application.routes.draw do
     resources :containers do 
       resources :entries
     end
-  end
 
-  resources :chats, only: %i[new create show] do
-    resources :messages, only: %i[create]
+    resources :chats, only: %i[create show destroy] do
+      resources :messages, only: %i[create]
+    end
   end
 end

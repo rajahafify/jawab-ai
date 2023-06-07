@@ -3,19 +3,9 @@ class EntriesController < ApplicationController
   before_action :set_factory
   before_action :set_container
 
-  # GET /entries/1 or /entries/1.json
-  def show
-    @entry = @container.entries.find(params[:id])
-  end
-
   # GET /entries/new
   def new
     @entry = @container.entries.new
-  end
-
-  # GET /entries/1/edit
-  def edit
-    @entry = @container.entries.find(params[:id])
   end
 
   # POST /entries or /entries.json
@@ -31,6 +21,16 @@ class EntriesController < ApplicationController
         format.json { render json: @entry.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # GET /entries/1 or /entries/1.json
+  def show
+    @entry = @container.entries.find(params[:id])
+  end
+
+  # GET /entries/1/edit
+  def edit
+    @entry = @container.entries.find(params[:id])
   end
 
   # PATCH/PUT /entries/1 or /entries/1.json
