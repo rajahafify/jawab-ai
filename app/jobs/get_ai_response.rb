@@ -8,15 +8,26 @@ class GetAIResponse < ApplicationJob
   private
 
   def call_openai(chat:)
-    chat.messages.find_or_create_by(role: :system).update(content: chat.prompt)
-    message = chat.messages.create(role: :assistant, content: "")
+    knowledge_base = "Company Name: #{chat.factory.name}, Company Description: #{chat.factory.description}"
+    user_prompt = 
+      "
+        [Article]
+        #{knowledge_base}
 
+        [Question]
+        #{chat.messages.order(created_at: :asc).last.content}
+      "
+    chat.messages.find_or_create_by(role: :system).update(content: chat.system_prompt)
+    messages = Message.for_openai(chat.messages.order(created_at: :asc))[0...-1]
+    messages.push({ role: :user, content: user_prompt })
+
+    response = chat.messages.create(role: :assistant, content: "")
     OpenAI::Client.new.chat(
       parameters: {
         model: "gpt-3.5-turbo",
-        messages: Message.for_openai(chat.messages.order(created_at: :asc)),
-        temperature: 0.1,
-        stream: stream_proc(message: message)
+        messages: messages,
+        temperature: 0.2,
+        stream: stream_proc(message: response)
       }
     )
   end
