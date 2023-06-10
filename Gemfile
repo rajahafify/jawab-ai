@@ -33,3 +33,5 @@ gem "neighbor", "~> 0.2.3"
 gem "ruby-openai", "~> 4.1"
 gem "sidekiq", "~> 7.0.9"
 gem 'devise'
+
+gem "byebug", "~> 11.1"
