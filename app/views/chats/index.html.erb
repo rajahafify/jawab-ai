@@ -1,0 +1,10 @@
+<div>
+  <h1>All chats</h1>
+  <ul>
+    <% @chats.each do |chat| %>
+      <li><%= link_to "Chat: #{chat.id}", chat %></li>
+    <% end %>
+
+    <%= button_to "Add chat", chats_path, method: :post %>
+  </ul>
+</div>
