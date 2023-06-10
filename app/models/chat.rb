@@ -1,25 +1,20 @@
 # app/models/chat.rb
 class Chat < ApplicationRecord
   belongs_to :user
-  belongs_to :factory
 
   has_many :messages, dependent: :destroy
 
   after_create_commit { create_initial_message }
 
   def queue
-    GetAIResponse.perform_now(id)
+    GetAIResponse.perform_later(id)
   end
 
   def respond
     ai_service
       .chat(
         conversation: conversation_with_user_prompt, 
-        stream_proc: Proc.new do |chunk, _bytesize|
-          new_content = chunk.dig("choices", 0, "delta", "content")
-          puts new_content
-          response.update(content: response.content + new_content) if new_content
-        end
+        response: response 
       )
   end
 
@@ -75,7 +70,7 @@ class Chat < ApplicationRecord
   end
 
   def knowledge_base
-    embedding = ai_service.embed(conversation_context.to_s).dig("data", 0, "embedding")
-    factory.entries.nearest_neighbors(:embedding, embedding, distance: "euclidean").limit(3)&.pluck(:content)&.join(",").presence || ""
+    # embedding = ai_service.embed(conversation_context.to_s).dig("data", 0, "embedding")
+    ""
   end
 end

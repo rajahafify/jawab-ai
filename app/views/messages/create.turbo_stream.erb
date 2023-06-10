@@ -2,5 +2,5 @@
   <%= render "message", message: @message, scroll_to: true %>
 <% end %>
 <%= turbo_stream.replace "#{dom_id(@message.chat)}_message_form" do %>
-  <%= render "form", factory: @message.chat.factory, chat: @message.chat %>
+  <%= render "form", chat: @message.chat %>
 <% end %>

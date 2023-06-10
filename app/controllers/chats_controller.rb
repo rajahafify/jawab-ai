@@ -3,29 +3,29 @@ class ChatsController < ApplicationController
   respond_to :html, :turbo_stream
 
   before_action :authenticate_user!
-  before_action :set_factory
   before_action :set_chat, only: %i[show destroy]
+
+  def index
+    @chats = current_user&.chats || []
+  end
 
   def show
   end
 
   def create
-    @chat = @factory.chats.create!(user: current_user)
-    redirect_to [@factory, @chat]
+    @chat = current_user.chats.create
+    redirect_to @chat
   end
 
   def destroy
     @chat.destroy
-    redirect_to @factory
+    redirect_to root_path
   end
 
   private
 
   def set_chat
-    @chat = @factory.chats.find(params[:id])
+    @chat = Chat.find(params[:id])
   end
 
-  def set_factory
-    @factory = Factory.find(params[:factory_id])
-  end
 end
