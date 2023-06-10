@@ -1,6 +1,22 @@
 require_relative "boot"
 
-require "rails/all"
+require "rails"
+%w(
+  active_record/railtie
+  active_storage/engine
+  action_controller/railtie
+  action_view/railtie
+  active_job/railtie
+  action_cable/engine
+  action_text/engine
+  action_mailer/railtie
+  action_mailbox/engine
+).each do |railtie|
+  begin
+    require railtie
+  rescue LoadError
+  end
+end     
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -15,6 +31,13 @@ module JawabAi
     config.active_job.queue_adapter = :sidekiq
 
     config.web_console.permissions = '192.168.0.0/32'
+
+    config.generators do |g|
+      g.helpers = false
+      g.stylesheets = false
+      g.assets = false
+      g.javascripts = false
+    end
 
     # Configuration for the application, engines, and railties goes here.
     #
