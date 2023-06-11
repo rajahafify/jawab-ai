@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :chats, only: %i[create show destroy] do
     resources :messages, only: :create
 
-    resources :data_sources, only: :destroy
+    resources :data_sources, only: [:show, :destroy]
     namespace :data_sources do
       resources :texts
       resources :question_answers

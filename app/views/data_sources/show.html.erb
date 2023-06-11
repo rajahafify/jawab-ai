@@ -1,0 +1,13 @@
+<h1>
+  Data Chunk
+</h1>
+<ol>
+  <% @data_source.data_chunks.each do |chunk| %>
+    <li>
+      <%= chunk.content %>
+    </li>
+  <% end %>
+</ol>
+
+<h1>Source</h1>
+<%= render "data_sources/#{@data_source.source_type.underscore.pluralize}/source", source: @data_source.source %>

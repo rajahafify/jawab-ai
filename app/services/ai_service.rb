@@ -27,12 +27,22 @@ class AIService
     )
   end
 
+  def summarize(array)
+    response = @client.completions(
+      parameters: {
+          model: "text-davinci-003",
+          prompt: "Summarize the following text in 10 words: #{array}",
+          max_tokens: 50
+      }
+    )
+    response.dig("choices", 0, "text").strip
+  end
+
   private
 
   def stream_proc(response:)
     proc do |chunk, _bytesize|
       new_content = chunk.dig("choices", 0, "delta", "content")
-      puts new_content
       response.update(content: response.content + new_content) if new_content
     end
   end

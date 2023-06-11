@@ -26,10 +26,6 @@ class Chat < ApplicationRecord
     messages.create(role: :assistant, content: "")
   end
 
-  def stream_proc(response:)
-    
-  end
-
   def ai_service
     @ai_service ||= AIService.new
   end
@@ -42,9 +38,10 @@ class Chat < ApplicationRecord
   def system_prompt
     [
       "You are a helpful AI assistant.",
-      "Strictly only the provided articles delimited by",
+      "You only answer in English or Bahasa Malaysia.",
+      "Strictly only the provided data source delimited by",
       "triple quotes to answer questions.",
-      "If the answer cannot be found in the articles,",
+      "If the answer cannot be found in the data source,",
       "write `I could not find an answer.`",
     ].join(" ")
   end
@@ -71,8 +68,13 @@ class Chat < ApplicationRecord
     "'''#{knowledge_base}''' question: #{conversation.last[:content]}"
   end
 
+  def conversation_context_vector
+    ai_service.embed(conversation.last[:content]).dig("data", 0, "embedding")
+  end
+
   def knowledge_base
-    # embedding = ai_service.embed(conversation_context.to_s).dig("data", 0, "embedding")
-    ""
+    chunks = DataChunk.nearest_neighbors(:embedding, conversation_context_vector, distance: "euclidean").first(3).map(&:content)
+    puts chunks
+    chunks
   end
 end
