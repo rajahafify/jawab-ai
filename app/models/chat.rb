@@ -4,10 +4,12 @@ class Chat < ApplicationRecord
 
   has_many :messages, dependent: :destroy
 
+  has_many :data_sources, dependent: :destroy
+
   after_create_commit { create_initial_message }
 
-  def queue
-    GetAIResponse.perform_later(id)
+  def queue_respond
+    ChatJob.perform_later(id, :respond)
   end
 
   def respond

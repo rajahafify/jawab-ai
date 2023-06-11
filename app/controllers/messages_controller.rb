@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
 
   def create
     @message = Message.find_or_create_by(message_params.merge(chat_id: params[:chat_id], role: "user"))
-    @message.chat.queue
+    @message.chat.queue_respond
 
     respond_to do |format|
       format.turbo_stream
