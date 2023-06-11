@@ -30,7 +30,7 @@ module JawabAi
     # Use sidekiq for active jobs
     config.active_job.queue_adapter = :sidekiq
 
-    config.web_console.permissions = '192.168.0.0/32'
+    config.web_console.permissions = ENV.fetch('DOCKER_HOST') { '10.89.0.0/16' }
 
     config.generators do |g|
       g.helpers = false

@@ -8,6 +8,12 @@ Rails.application.routes.draw do
   root "chats#index"
 
   resources :chats, only: %i[create show destroy] do
-    resources :messages, only: %i[create]
+    resources :messages, only: :create
+
+    resources :data_sources, only: :destroy
+    namespace :data_sources do
+      resources :texts
+      resources :question_answers
+    end
   end
 end

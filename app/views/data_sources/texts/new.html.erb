@@ -1,0 +1,12 @@
+<%= form_with(model: @text, url: chat_data_sources_texts_path(@chat.id) ) do |form| %>
+  <div class="my-5">
+    <%= form.text_area :content, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="grid justify-items-end">
+    <%= form.button type: :submit, class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" do %>
+      <i class="fas fa-paper-plane"></i>
+      <span class="pl-2">Send</span>
+    <% end %>
+  </div>
+<% end %>

@@ -1,6 +1,32 @@
 <div class="mx-auto w-full flex">
   <div class="mx-auto">
-
+    <h2>DataSource</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Source Type</th>
+        </tr>
+      </thead>
+      <% if @chat.data_sources.present? %>
+        <% @chat.data_sources.each_with_index do |ds,i| %>
+          <tr>
+            <td>#<%= i + 1 %></td>
+            <td><%= ds.source_type %></td>
+            <td><%= ds.data_chunks.count %></td>
+            <td><%= link_to "Delete", [@chat, ds], method: :delete, confirm: "Are you sure?" %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td>No data source</td>
+        </tr>
+      <% end %>
+    </table>
+    <%= link_to "Add data source", new_chat_data_sources_text_path(@chat) %>
+  </div>
+  <div class="mx-auto">
+    <h2>Chat</h2>
     <div class="bg-white py-8">
       <div class="mx-auto max-w-lg px-6 ">
         <ul role="list" class="overflow-y-auto max-h-[48vh] flex flex-col-reverse">
