@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_11_045731) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_11_055426) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "vector"
@@ -39,15 +39,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_11_045731) do
     t.index ["chat_id"], name: "index_messages_on_chat_id"
   end
 
-  create_table "source_question_answers", force: :cascade do |t|
-    t.string "question"
-    t.text "answer"
+  create_table "question_answers", force: :cascade do |t|
+    t.string "question", null: false
+    t.text "answer", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "source_texts", force: :cascade do |t|
-    t.text "data", null: false
+  create_table "texts", force: :cascade do |t|
+    t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
