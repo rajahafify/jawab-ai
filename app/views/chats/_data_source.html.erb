@@ -1,0 +1,36 @@
+  <div class="mx-auto">
+    <h2>DataSource</h2>
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Summary</th>
+          <th>Source Type</th>
+          <th>Chunk Count</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <% if @chat.data_sources.present? %>
+        <tbody>
+          <% @chat.data_sources.each_with_index do |ds,i| %>
+            <tr>
+              <td>#<%= i + 1 %></td>
+              <td>#<%= ds.summary %></td>
+              <td><%= ds.source_type %></td>
+              <td><%= ds.data_chunks.count %></td>
+              <td>
+                <%= link_to "View", [@chat, ds] %>
+                <%= link_to "Delete", [@chat, ds], method: :delete, confirm: "Are you sure?" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      <% else %>
+        <tr>
+          <td colspan="5">No data source</td>
+        </tr>
+      <% end %>
+    </table>
+    <%= link_to "Add text", new_chat_data_sources_text_path(@chat), class: "btn btn-primary" %>
+    <%= link_to "Add Q&A", new_chat_data_sources_question_answer_path(@chat), class: "btn btn-primary" %>
+  </div>

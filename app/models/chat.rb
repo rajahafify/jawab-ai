@@ -38,7 +38,7 @@ class Chat < ApplicationRecord
   def system_prompt
     [
       "You are a helpful AI assistant.",
-      "You only answer in English or Bahasa Malaysia.",
+      "Respond with the same language as the question",
       "Strictly only the provided data source delimited by",
       "triple quotes to answer questions.",
       "If the answer cannot be found in the data source,",

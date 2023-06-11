@@ -1,11 +1,33 @@
-<div id="<%= dom_id(message) %>_messages">
-  <% if message.user? %>
-    <div class="bg-sky-400 rounded-lg m-8 text-white p-4">
-      <%= message.role.titleize %>: <%= message.content %>
+<% if message.user? %>
+  <div class="container" id="<%= dom_id(message) %>_messages">
+    <div class="d-flex justify-content-between">
+      <p class="small mb-1 text-muted">
+        <%= time_ago_in_words(message.created_at) %> ago
+      </p>
+      <p class="small mb-1">User</p>
     </div>
-  <% elsif message.assistant? %>
-    <div class="bg-gray-200 rounded-lg m-8 p-4">
-      <%= message.role.titleize %>: <%= message.content %>
+    <div class="d-flex flex-row justify-content-end mb-4 pt-1">
+      <div>
+        <p class="small p-2 me-3 mb-3 text-white rounded-3 bg-warning">
+          <%= message.content %>
+        </p>
+      </div>
     </div>
-  <% end %>
-</div>
+  </div>
+<% elsif message.assistant? %>
+  <div class="container" id="<%= dom_id(message) %>_messages">
+    <div class="d-flex justify-content-between">
+      <p class="small mb-1">Assistant</p>
+      <p class="small mb-1 text-muted">
+        <%= time_ago_in_words(message.created_at) %> ago
+      </p>
+    </div>
+    <div class="d-flex flex-row justify-content-start">
+      <div>
+        <p class="small p-2 ms-3 mb-3 rounded-3" style="background-color: #f5f6f7;">
+          <%= message.content %>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>

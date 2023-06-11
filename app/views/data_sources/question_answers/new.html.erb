@@ -1,14 +1,19 @@
 <%= form_with(model: @question_answer, url: chat_data_sources_question_answers_path(@chat.id) ) do |form| %>
-  <div class="my-5">
-    <%= form.label :question %>
-    <%= form.text_field :question, class: "text-field" %>
-    <br>
-    <%= form.label :answer %>
-    <%= form.text_area :answer, rows: 4, class: "text-area" %>
+  <div class="mb-3 row">
+    <%= form.label :question, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_field :question, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="grid justify-items-end">
-    <%= form.button type: :submit, class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" do %>
+  <div class="mb-3 row">
+    <%= form.label :answer, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_area :answer, class: "form-control" %>
+    </div>
+  </div
+  <div class="mb-3">
+    <%= form.button type: :submit, class: "btn btn-primary" do %>
       <i class="fas fa-paper-plane"></i>
       <span class="pl-2">Add</span>
     <% end %>

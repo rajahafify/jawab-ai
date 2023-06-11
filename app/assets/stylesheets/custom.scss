@@ -1,0 +1,13 @@
+@import "bootstrap";
+
+.chat-body {
+  position: relative; 
+  height: 400px; 
+  overflow-y: auto; 
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y mandatory;
+
+  & > div:last-child {
+    scroll-snap-align: start;
+  }
+}

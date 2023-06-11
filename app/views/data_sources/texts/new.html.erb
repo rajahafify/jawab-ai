@@ -1,10 +1,13 @@
 <%= form_with(model: @text, url: chat_data_sources_texts_path(@chat.id) ) do |form| %>
-  <div class="my-5">
-    <%= form.text_area :content, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  <div class="mb-3 row">
+    <%= form.label :content, class: "cold-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_area :content, class: "form-control" %>
+    </div>
   </div>
 
   <div class="grid justify-items-end">
-    <%= form.button type: :submit, class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" do %>
+    <%= form.button type: :submit, class: "btn btn-primary" do %>
       <i class="fas fa-paper-plane"></i>
       <span class="pl-2">Add</span>
     <% end %>

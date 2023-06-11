@@ -1,0 +1,28 @@
+<div class="mx-auto">
+  <h2>Chat</h2>
+  <section style="background-color: #eee;">
+    <div class="container py-5">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-8 col-lg-6 col-xl-4">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center p-3"
+              style="border-top: 4px solid #ffa900;">
+              <h5 class="mb-0">Chat messages</h5>
+              <%= link_to "Delete chat", @chat, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+            </div>
+            <%= turbo_stream_from "#{dom_id(@chat)}_messages" %>
+            <div 
+              class="card-body chat-body" 
+              data-mdb-perfect-scrollbar="true" 
+              id="<%= dom_id(@chat) %>_messages"
+            >
+              <%= render @chat.messages.order(created_at: :asc) %>
+            </div>
+            <%= render partial: "messages/form", locals: { chat: @chat } %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
