@@ -1,6 +1,10 @@
-<%= form_with(model: @text, url: chat_data_sources_texts_path(@chat.id) ) do |form| %>
+<%= form_with(model: @question_answer, url: chat_data_sources_question_answers_path(@chat.id) ) do |form| %>
   <div class="my-5">
-    <%= form.text_area :content, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :question %>
+    <%= form.text_field :question, class: "text-field" %>
+    <br>
+    <%= form.label :answer %>
+    <%= form.text_area :answer, rows: 4, class: "text-area" %>
   </div>
 
   <div class="grid justify-items-end">

@@ -1,8 +1,12 @@
 class DataSourcesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_chat
+
+  def show
+    @data_source = @chat.data_sources.find(params[:id])
+  end
 
   def destroy
-    @chat = Chat.find(params[:chat_id])
     data_source = @chat.data_sources.find(params[:id])
     data_source.transaction do
       data_source.source.destroy
@@ -12,5 +16,11 @@ class DataSourcesController < ApplicationController
 
   rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotFound
     redirect_to @chat, notice: "Fail to delete data source"
+  end
+
+  private
+
+  def set_chat
+    @chat = Chat.find(params[:chat_id])
   end
 end

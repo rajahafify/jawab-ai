@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_11_084823) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_11_143920) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "vector"
@@ -39,6 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_11_084823) do
     t.string "source_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "summary", default: "No summary"
     t.index ["chat_id"], name: "index_data_sources_on_chat_id"
   end
 

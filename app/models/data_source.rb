@@ -13,7 +13,6 @@ class DataSource < ApplicationRecord
 
   def generate_chunks
     process.each do |chunk|
-      ai_service = AIService.new
       vector = ai_service.embed(chunk)
       DataChunk.create(
         content: chunk,
@@ -22,5 +21,10 @@ class DataSource < ApplicationRecord
         data_source: self
       )
     end
+    self.update!(summary: ai_service.summarize(data_chunks.limit(3).map(&:content)))
+  end
+
+  def ai_service
+    @AIService ||= AIService.new
   end
 end

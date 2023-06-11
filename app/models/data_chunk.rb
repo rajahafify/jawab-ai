@@ -6,4 +6,8 @@ class DataChunk < ApplicationRecord
   def source
     data_source.source
   end
+
+  def nearby_neighbors limit=3
+    nearest_neighbors(:embedding, distance: "euclidean").first(limit).map(&:content)
+  end
 end
