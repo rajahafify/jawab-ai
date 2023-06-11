@@ -7,7 +7,7 @@ class Chat < ApplicationRecord
   after_create_commit { create_initial_message }
 
   def queue
-    GetAIResponse.perform_later(id)
+    ChatJob.perform_later(id, :respond)
   end
 
   def respond

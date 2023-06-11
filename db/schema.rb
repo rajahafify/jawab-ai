@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_05_101609) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_11_045731) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "vector"
@@ -22,6 +22,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_101609) do
     t.index ["user_id"], name: "index_chats_on_user_id"
   end
 
+  create_table "data_sources", force: :cascade do |t|
+    t.string "name"
+    t.integer "source_id", null: false
+    t.string "source_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "messages", force: :cascade do |t|
     t.bigint "chat_id", null: false
     t.integer "role"
@@ -29,6 +37,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_101609) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["chat_id"], name: "index_messages_on_chat_id"
+  end
+
+  create_table "source_question_answers", force: :cascade do |t|
+    t.string "question"
+    t.text "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "source_texts", force: :cascade do |t|
+    t.text "data", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
