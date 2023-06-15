@@ -36,6 +36,6 @@ gem 'devise'
 
 gem "byebug", "~> 11.1"
 
-gem "bootstrap", "~> 5.2"
+gem 'bootstrap', '~> 5.3.0.alpha3'
 
 gem "sassc-rails", "~> 2.1"

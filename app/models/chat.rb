@@ -39,8 +39,6 @@ class Chat < ApplicationRecord
     [
       "You are a helpful AI assistant.",
       "Respond with the same language as the question",
-      "Strictly only the provided data source delimited by",
-      "triple quotes to answer questions.",
       "If the answer cannot be found in the data source,",
       "write `I could not find an answer.`",
     ].join(" ")

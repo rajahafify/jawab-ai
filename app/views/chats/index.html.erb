@@ -1,10 +1,12 @@
-<div>
+<main class="px-3">
   <h1>All chats</h1>
-  <ul>
-    <% @chats.each do |chat| %>
-      <li><%= link_to "Chat: #{chat.id}", chat %></li>
-    <% end %>
-
-    <%= button_to "Add chat", chats_path, method: :post %>
-  </ul>
-</div>
+  <div class="div">
+    <ul class="list-group">
+      <% @chats.each do |chat| %>
+        <li class="list-group-item"><%= link_to "Chat: #{chat.id}", chat %></li>
+      <% end %>
+    </ul>
+  </div>
+  <br>
+  <%= button_to "New chat", chats_path, method: :post, class: "btn btn-primary" %>
+</main>

@@ -2,7 +2,7 @@
 class ChatsController < ApplicationController
   respond_to :html, :turbo_stream
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :index
   before_action :set_chat, only: %i[show destroy]
 
   def index
