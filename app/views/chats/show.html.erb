@@ -1,53 +1,68 @@
-<div class="mx-auto w-full flex">
-  <div class="mx-auto">
-    <h2>DataSource</h2>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Summary</th>
-          <th>Source Type</th>
-          <th>Chunk Count</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <% if @chat.data_sources.present? %>
-        <% @chat.data_sources.each_with_index do |ds,i| %>
-          <tr>
-            <td>#<%= i + 1 %></td>
-            <td>#<%= ds.summary %></td>
-            <td><%= ds.source_type %></td>
-            <td><%= ds.data_chunks.count %></td>
-            <td>
-              <%= link_to "View", [@chat, ds] %>
-              <%= link_to "Delete", [@chat, ds], method: :delete, confirm: "Are you sure?" %>
-            </td>
-          </tr>
-        <% end %>
-      <% else %>
-        <tr>
-          <td>No data source</td>
-        </tr>
-      <% end %>
-    </table>
-    <%= link_to "Add text", new_chat_data_sources_text_path(@chat) %>
-    <%= link_to "Add Q&A", new_chat_data_sources_question_answer_path(@chat) %>
+<div class="grid grid-cols-3">
+  <div class="col-span-2">
+    <div class="px-4 sm:px-6 lg:px-8">
+      <div class="sm:flex sm:items-center">
+        <span class="isolate inline-flex rounded-md shadow-sm">
+          <%= link_to "Add text", new_chat_data_sources_text_path(@chat), class: 'relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10' %>
+          <%= link_to "Add Q&A", new_chat_data_sources_question_answer_path(@chat), class: 'relative -ml-px inline-flex items-center rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10' %>
+        </span>
+      </div>
+      <div class="-mx-4 mt-10 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
+        <table class="min-w-full divide-y divide-gray-300">
+          <thead>
+            <tr>
+              <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">ID</th>
+              <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">Summary</th>
+              <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">Source type</th>
+              <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">Chunk count</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Action</th>
+              <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                <span class="sr-only">Select</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <% @chat.data_sources.each_with_index do |ds,i| %>
+              <tr>
+                <td class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell">#<%= i + 1 %></td>
+                <td class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell">#<%= ds.summary %></td>
+                <td class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell"><%= ds.source_type %></td>
+                <td class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell"><%= ds.data_chunks.count %></td>
+                <td class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
+                  <%= link_to "View", [@chat, ds] %>
+                  <%= link_to "Delete", [@chat, ds], method: :delete, confirm: "Are you sure?" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  <div class="mx-auto">
-    <h2>Chat</h2>
-    <div class="bg-white py-8">
-      <div class="mx-auto max-w-lg px-6 ">
+
+  <div class="col-span-1">
+    <div class="overflow-hidden bg-white shadow sm:rounded-lg">
+      <div class="px-4 py-6 sm:px-6">
+        <h3 class="text-base font-semibold leading-7 text-gray-900">Your chat</h3>
+      </div>
+
+      <div class="border-t border-gray-100">
         <ul role="list" class="overflow-y-auto max-h-[48vh] flex flex-col-reverse">
           <%= turbo_stream_from "#{dom_id(@chat)}_messages" %>
           <div id="<%= dom_id(@chat) %>_messages">
             <%= render @chat.messages.order(created_at: :asc) %>
           </div>
         </ul>
+      </div>
 
+      <div class="px-4 py-6 sm:px-6">
         <%= render partial: "messages/form", locals: { chat: @chat } %>
       </div>
     </div>
 
-    <%= link_to "Delete chat", @chat, method: :delete, data: { confirm: "Are you sure?" } %>
+    <div class="mt-2">
+      <%= link_to "Delete chat", @chat, method: :delete, data: { confirm: "Are you sure?" } %>
+    </div>
   </div>
 </div>
