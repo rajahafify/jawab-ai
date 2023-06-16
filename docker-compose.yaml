@@ -9,8 +9,9 @@ services:
 
   web:
     build: .
-    command: /bin/bash -c "rm -f /tmp/server.pid && bundle exec rails server -b 0.0.0.0 -P /tmp/server.pid"
+    command: /bin/bash -c "bin/dev"
     env_file: .env
+    tty: true
     volumes:
       - .:/myapp
     ports:

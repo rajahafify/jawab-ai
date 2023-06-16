@@ -35,3 +35,5 @@ gem "sidekiq", "~> 7.0.9"
 gem 'devise'
 
 gem "byebug", "~> 11.1"
+
+gem "tailwindcss-rails", "~> 2.0"
